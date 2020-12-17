@@ -1,12 +1,13 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import DealItem from './DealItem';
 
-export default DealList = ({deals}) => {
+export default DealList = ({deals, onItemPress}) => {
 
     return (
         <View style={styles.list}>
             <FlatList data={deals} rendeItem={({item}) => 
-                <Text>{item.title}</Text>
+                <DealItem deal={item} onPress={onItemPress}/>
             } keyExtractor={item => item.key}/>
         </View>
     );

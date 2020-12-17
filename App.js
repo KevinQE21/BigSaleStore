@@ -1,11 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import api from './api';
 import DealList from './components/DealList';
+import DealDetail from './components/DealDetail';
 
 export default function App() {
-  const [deals, setDeals] = useState([]);
+
+  const [ deals, setDeals ] = useState([]);
+  const [ currentDealId, setCurrentDealId ] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -15,17 +18,28 @@ export default function App() {
 
   }, []);
 
-  return (
-    <View style={styles.container}>
+
+  const getCurrentDeal = () => deals.find(deal => deal.key === currentDealId);
+
+  return ( 
+    <> 
       {
-        deals.length > 0 ? (
-          <DealList deals={deals} />
+        currentDealId ? (
+          <DealDetail deal={getCurrentDeal()} />
         ) : (
-          <Text style={styles.header}>BigSale App!</Text>
-        )
+          <View style={styles.container}>
+            {
+              deals.length > 0 ? (
+                <DealList deals={deals} onItemPress={setCurrentDealId} />
+              ) : (          
+                <Text style={styles.header}>BigSale App!</Text>          
+              )
+            }
+          </View>
+        )       
       }     
       <StatusBar style="auto" />
-    </View>
+    </>
   );
 }
 
