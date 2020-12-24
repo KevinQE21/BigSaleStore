@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 16,
-        fontweight: 'bold',
+        fontWeight: 'bold',
         marginBottom: 5,
     },
     footer: {
